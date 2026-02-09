@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NAMA AJK KEM OJT 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1e2422;
+      --muted: #54605c;
+      --accent: #1f7a6b;
+      --accent-2: #c46a3c;
+      --card: #ffffff;
+      --line: rgba(30, 36, 34, 0.12);
+      --shadow: 0 6px 16px rgba(30, 36, 34, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      background: linear-gradient(160deg, #f7f6f2 0%, #eef3f0 55%, #f7efe9 100%);
+    }
+
+    .backdrop {
+      display: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 52px 24px 88px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(32px, 4.4vw, 56px);
+      margin: 0;
+      color: #1a2f2a;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 16px;
+      max-width: 640px;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat span {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      margin-top: 6px;
+    }
+
+    .panel {
+      margin-top: 28px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .roles {
+      margin-top: 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .role-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: #fff;
+      display: grid;
+      gap: 6px;
+    }
+
+    .role-card h3 {
+      margin: 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .role-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: grid;
+      gap: 16px;
+    }
+
+    .search label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .filter.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px rgba(31, 122, 107, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .toggle input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .actions button {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .actions button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    #export {
+      background: var(--accent-2);
+      color: #fff;
+      border-color: var(--accent-2);
+      box-shadow: 0 6px 16px rgba(196, 106, 60, 0.2);
+    }
+
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .shown {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      margin-top: 16px;
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: rgba(31, 122, 107, 0.1);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    tbody tr.dup {
+      background: rgba(196, 106, 60, 0.12);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(196, 106, 60, 0.2);
+      color: #7b3d1d;
+      margin-left: 8px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .actions button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">NAMA AJK KEM OJT 2026</div>
+      <h1>Senarai AJK</h1>
+      <div class="stats">
+        <div class="stat">
+          <span>Jumlah nama</span>
+          <strong id="totalCount">0</strong>
+        </div>
+        <div class="stat">
+          <span>Nama unik</span>
+          <strong id="uniqueCount">0</strong>
+        </div>
+        <div class="stat">
+          <span>Duplikasi (rekod)</span>
+          <strong id="duplicateCount">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel" aria-label="Tugas kumpulan">
+      <div class="eyebrow">Ringkasan Tugas</div>
+      <h2 style="margin: 6px 0 0; font-family: 'Fraunces', serif;">Tugas Kumpulan</h2>
+      <div class="roles">
+        <div class="role-card">
+          <h3>Kump 1 (Sebelum)</h3>
+          <p>Setup tempat, susun meja, arang dan peralatan.</p>
+        </div>
+        <div class="role-card">
+          <h3>Kump 2 (Semasa)</h3>
+          <p>Pembakaran atau grill serta refill bahan.</p>
+        </div>
+        <div class="role-card">
+          <h3>Kump 3 (VIP)</h3>
+          <p>Hidangan VIP untuk serve, pack, dan label. Kawal kualiti serta kebersihan.</p>
+        </div>
+        <div class="role-card">
+          <h3>Kump 4 (Selepas)</h3>
+          <p>Kemas kawasan, buang sampah, dan simpan peralatan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="controls">
+        <div class="search">
+          <label for="search">Cari nama</label>
+          <input id="search" type="search" placeholder="Contoh: NUR SYAZWANI">
+        </div>
+        <div class="filter-row" role="group" aria-label="Penapis kumpulan">
+          <button class="filter active" data-group="All">Semua</button>
+          <button class="filter" data-group="Kumpulan 1">Kumpulan 1</button>
+          <button class="filter" data-group="Kumpulan 2">Kumpulan 2</button>
+          <button class="filter" data-group="Kumpulan 3">Kumpulan 3</button>
+          <button class="filter" data-group="Kumpulan 4">Kumpulan 4</button>
+        </div>
+        <div class="actions">
+          <button id="reset" type="button">Reset</button>
+          <button id="export" type="button">Muat turun CSV (paparan)</button>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="chips" id="groupChips"></div>
+        <div class="shown">Paparan: <strong id="shownCount">0</strong></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 70px;">No</th>
+              <th>Nama</th>
+              <th style="width: 160px;">Kumpulan</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">Disediakan untuk AJK KEM OJT 2026</footer>
+  </main>
+
+  <script>
+    const normalized = (text) => text.trim().replace(/\s+/g, " ").toUpperCase();
+    const seen = new Set();
+    const data = [
+      { name: "NIK MOHAMAD SHARIL BIN NIK JAYAWIRA", group: "Kumpulan 1" },
+      { name: "MUHAMMAD AQIL HAZMI BIN MOHD AB RAHMAN", group: "Kumpulan 1" },
+      { name: "NUR DAMIA ZAFIRAH BINTI MOHD ZAKI", group: "Kumpulan 1" },
+      { name: "TUAN HASHNANI BINTI TUAN PA", group: "Kumpulan 1" },
+      { name: "NORATIRAH ALEYA BINTI MOHD ZAWAWI", group: "Kumpulan 1" },
+      { name: "AHMAD DAIMAN BIN ABDUL MANAF", group: "Kumpulan 1" },
+      { name: "NOR HASMIMI SYAFIKA BINTI MOHD ZAIDI", group: "Kumpulan 1" },
+      { name: "WAN NUR ANIS SYAKILLA BINTI WAN ARIFIN", group: "Kumpulan 1" },
+      { name: "MOHAMAD ALIF HAIQAL BIN CHE IBRAHIM", group: "Kumpulan 1" },
+      { name: "NUR SYAZWANI AMIRAH BINTI BADRUL HISYAM", group: "Kumpulan 1" },
+      { name: "NUR SYAZA ALIA BINTI AHMAD SHUKRI", group: "Kumpulan 1" },
+      { name: "MOHAMAD SYAIFUL IZLEER BIN IBRAHIM", group: "Kumpulan 1" },
+      { name: "NUR QASHEH BINTI MOHAMAD HARMAN RIDUAN", group: "Kumpulan 1" },
+      { name: "MOHAMAD NASRUL HAKIM BIN MOHD YUSRAN", group: "Kumpulan 1" },
+      { name: "NUR AZYAN BINTI MOHD ZAIN", group: "Kumpulan 1" },
+      { name: "MURSYIDA BINTI MOHD SAPIEI", group: "Kumpulan 1" },
+      { name: "TENGKU MIZA DAMIA BINTI TENGKU MOHD AZMI", group: "Kumpulan 1" },
+      { name: "NORAINI BINTI NORIZAL", group: "Kumpulan 1" },
+      { name: "MUHAMAD HAIRIL DANIAL BIN BAHSAN", group: "Kumpulan 1" },
+      { name: "NUR BATRISYIA BALQIS BINTI KHALIZAN", group: "Kumpulan 1" },
+      { name: "MUHAMMAD IRFAN IZZUDDIN BIN AZMI", group: "Kumpulan 1" },
+      { name: "ALYA NORESYA BINTI ISMAIL", group: "Kumpulan 1" },
+      { name: "MUHAMMAD SYARIF BIN SHAAID", group: "Kumpulan 1" },
+      { name: "MOHAMMAD AMIR IMAAN BIN ISMAIL", group: "Kumpulan 1" },
+      { name: "NAZERI BIN MUHAMAD", group: "Kumpulan 1" },
+      { name: "MUHAMMAD SYAWAL BIN MOHD ZAMERI", group: "Kumpulan 1" },
+      { name: "MUHAMAD AMIRUL IZWAN BIN AZLAN", group: "Kumpulan 1" },
+      { name: "SYARIFAH NURUL HUDA BINTI SYED BORI", group: "Kumpulan 1" },
+      { name: "NIK MUHAMMAD HAZIM BIN NIK MOHAMAD", group: "Kumpulan 1" },
+      { name: "MUHAMAD AIDIL HAKIMIE BIN MAT NASIR", group: "Kumpulan 1" },
+      { name: "MUHAMMAD DANISH ISKANDAR BIN MOHD ROZANI", group: "Kumpulan 1" },
+      { name: "MUHAMAD SIDDIQ BIN MAHAMAD", group: "Kumpulan 1" },
+      { name: "NURUL AZIANTI BINTI MOHD NAZRI", group: "Kumpulan 1" },
+      { name: "ADAM IMAN BIN AIZUL HAIKAL", group: "Kumpulan 2" },
+      { name: "ABDUL FATTAH BIN IZAIMAN @ MOHD IZAIMAN", group: "Kumpulan 2" },
+      { name: "MUHAMMAD ZULFI HAKIM BIN MOHD FAKHRUDIN", group: "Kumpulan 2" },
+      { name: "NURAIN SHAFIKAH BINTI ZAINUDDIN", group: "Kumpulan 2" },
+      { name: "SITI NUR AIN BINTI BILAL", group: "Kumpulan 2" },
+      { name: "AMIRUL HAIKAL BIN HAIRIL AMIR", group: "Kumpulan 2" },
+      { name: "NUR ADRIANA NAJWA BINTI AHMAD", group: "Kumpulan 2" },
+      { name: "MUHAMMAD AHNAF SYAHMI BIN ROSMAINI", group: "Kumpulan 2" },
+      { name: "NUR IFFAH BINTI SHAFII", group: "Kumpulan 2" },
+      { name: "NOR ADILA BINTI SHARIL", group: "Kumpulan 2" },
+      { name: "NUR HIDAYAH BINTI MUHAMMAD", group: "Kumpulan 2" },
+      { name: "DURRATUR RAJWAA BINTI MOHD NOR FAIZAN", group: "Kumpulan 2" },
+      { name: "MUHAMMAD ADAM BIN MOHD FADZIL", group: "Kumpulan 2" },
+      { name: "NIK AHMAD RIFQI BIN MOHD NORHASDI", group: "Kumpulan 2" },
+      { name: "WAN NUR SAHIRA BINTI WAN ZULKARNAIN", group: "Kumpulan 2" },
+      { name: "AMATULLAH ANIS BINTI MOHD SAIDI", group: "Kumpulan 2" },
+      { name: "MUHAMMAD AMIRUL AIMAN BIN MOHD ZAMANI", group: "Kumpulan 2" },
+      { name: "NUR AMNI SYAZWANI BINTI MOHAMMAD ZAIDI", group: "Kumpulan 2" },
+      { name: "NOR IZWAN BIN NOR IZHAM", group: "Kumpulan 2" },
+      { name: "SITI NORWARDINA BINTI MOHD ZULKIFLI", group: "Kumpulan 2" },
+      { name: "MUHAMMAD AMRU FITRI BIN MOHD ALIAS", group: "Kumpulan 2" },
+      { name: "MUHAMAD NAQRIEE CHEW BIN MOHAMMAD HISHAM CHEW", group: "Kumpulan 2" },
+      { name: "MOHAMAD IRFAN SHARIF BIN MOHD YATIN", group: "Kumpulan 2" },
+      { name: "NUR SYAIMAA BINTI ROSLI", group: "Kumpulan 2" },
+      { name: "MUHAMMAD AMIRUL IKHWAN BIN MAT ZAIB", group: "Kumpulan 2" },
+      { name: "MUHAMMAD ASHRAF BIN MOHTAR", group: "Kumpulan 2" },
+      { name: "WAN SARAFINAZ BINTI WAN MOHD AZRAIMIE", group: "Kumpulan 2" },
+      { name: "NUR HIDAYATUL ASMAWANI BINTI DAILI", group: "Kumpulan 2" },
+      { name: "NUR FAZLINA BINTI MUHAMMAD", group: "Kumpulan 2" },
+      { name: "AHMAD NAJMI FIRDAUS BIN MOHD ZAINUDDIN", group: "Kumpulan 2" },
+      { name: "SITI AISYAH BINTI SHARATUL AMALIE", group: "Kumpulan 2" },
+      { name: "NUR BATRISYIA BALQIS BINTI KHALIZAN", group: "Kumpulan 2" },
+      { name: "NUR AZLIN BINTI MOHD DIN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AMIR ASYRAF BIN NAZRI", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AMMAR DANIESH BIN ROSHAIZAAD", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AMIRUL IKHWAN BIN MAT ZAIB", group: "Kumpulan 3" },
+      { name: "NUR DANIESYA ALISA BINTI MOHD HAFIZZAL", group: "Kumpulan 3" },
+      { name: "MUHAMMAD ALIFF SYAHMI BIN MOHD SYAMSUDDIN", group: "Kumpulan 3" },
+      { name: "NUR AISYAH SAFIYYA BINTI MOHD FAZLI", group: "Kumpulan 3" },
+      { name: "MUHAMMAD ISYRAF BIN ISMAIL", group: "Kumpulan 3" },
+      { name: "ABDUL QAIDIR MUAZZAM BIN MUSTAFA", group: "Kumpulan 3" },
+      { name: "MUHAMMAD NEJAD BIN MOHD AZHAR", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AIZAT BIN ABDUL KAMAL", group: "Kumpulan 3" },
+      { name: "NAZARUL ISMA HAIZAT BIN ZAWAWI", group: "Kumpulan 3" },
+      { name: "MUHAMMAD KHAIRUL AIMAN BIN MOHD NASIR", group: "Kumpulan 3" },
+      { name: "NUR ANIS SYAHIDAH BINTI AZLAN", group: "Kumpulan 3" },
+      { name: "ALYA NABIHAH BINTI MOHD ROSDI", group: "Kumpulan 3" },
+      { name: "MUHAMMAD DANIAL HILMAN BIN AMRAN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AMIRUL IZWAN BIN AZLAN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD SYAHIR BIN OTHMAN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD TAUFIK AIMAN BIN CHE SUH", group: "Kumpulan 3" },
+      { name: "MUHAMAD WAFIY BIN BAHARIN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD FAZLEY BIN MOHAMED", group: "Kumpulan 3" },
+      { name: "NUR FARWIZAH BINTI MOHD SUFIAN", group: "Kumpulan 3" },
+      { name: "MOHAMAD RAHIMI FITRI BIN ROSLAN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD AMIRUL IKHWAN BIN MAT ZAIB", group: "Kumpulan 3" },
+      { name: "MUHAMMAD FAZWAN BIN NAZLI", group: "Kumpulan 3" },
+      { name: "NUR AIN SYAFIQAH BINTI ASMADI", group: "Kumpulan 3" },
+      { name: "NUR AIN SYAFIZA BINTI FAUZI", group: "Kumpulan 3" },
+      { name: "KHAIRUNNISA DELAILA BINTI SAYUTI", group: "Kumpulan 3" },
+      { name: "LIYANA MAISARAH BINTI AZMI", group: "Kumpulan 3" },
+      { name: "NUR FARHANA AMIRA BINTI IBRAHIM", group: "Kumpulan 3" },
+      { name: "NORFAIZATUL AKEMA BT ZAKARIA", group: "Kumpulan 3" },
+      { name: "MOHAMAD AQIL DANISH BIN HAZMAN", group: "Kumpulan 3" },
+      { name: "MUHAMMAD HARRAZ FAUZAN BIN ROSLI", group: "Kumpulan 4" },
+      { name: "AISYAH ADILAH BINTI AZMAN", group: "Kumpulan 4" },
+      { name: "AMEER LUTFI BIN ABDULLAH", group: "Kumpulan 4" },
+      { name: "AMMAR AMSYAR BIN AKBAR", group: "Kumpulan 4" },
+      { name: "HASMAWI BIN HASNAN", group: "Kumpulan 4" },
+      { name: "MOHAMMAD NU'MAN ALIF BIN NAZLY", group: "Kumpulan 4" },
+      { name: "MUHAMMAD HASIF AMSYAR BIN MOHD ZAINUL ABIDIN", group: "Kumpulan 4" },
+      { name: "NASIRUL AIDIB BIN MOHD ZUKI", group: "Kumpulan 4" },
+      { name: "NASIRUL AIDIB BIN MOHD ZUKI", group: "Kumpulan 4" },
+      { name: "NUR SYAZWANI AMIRAH BINTI BADRUL HISYAM", group: "Kumpulan 4" },
+      { name: "MUHAMMAD DANISH HAIKAL BIN NORHISYAM", group: "Kumpulan 4" },
+      { name: "MUHAMMAD IZZAT IZZHAM BIN IKHWANUDDIN CHOONG", group: "Kumpulan 4" },
+      { name: "ABDUL BASIT BIN PAUZI", group: "Kumpulan 4" },
+      { name: "MOHAMAD ASYRAF AIKAL BIN MOHD AZHAR", group: "Kumpulan 4" },
+      { name: "MOHAMAD AMIR ASYRAF BIN NAZRI", group: "Kumpulan 4" },
+      { name: "MUHAMMAD AMIRUL IDHAM BIN CHE YUSWA", group: "Kumpulan 4" },
+      { name: "MD SUHAIMIN BIN OTHMAN", group: "Kumpulan 4" },
+      { name: "AHMAD ALLIF MUHAIMIN BIN KAMARUDIN", group: "Kumpulan 4" },
+      { name: "DAMIA KARMILA BINTI SUHAIRRY IZHAM", group: "Kumpulan 4" },
+      { name: "MUHD HAIKAL LUQMAN BIN ABDUL MUHAIMININ", group: "Kumpulan 4" },
+      { name: "NAJIAN BINTI MOHD ANUAR", group: "Kumpulan 4" },
+      { name: "NUR FAZLINA BINTI MUHAMMAD", group: "Kumpulan 4" },
+      { name: "SITI NURAISHA BINTI MOHD SIDIK", group: "Kumpulan 4" },
+      { name: "PUTRI AYU WANDIRA BINTI ZULKIFLI", group: "Kumpulan 4" },
+      { name: "RUQAYYAH BINTI MOHD TARMIZI", group: "Kumpulan 4" },
+      { name: "WAN NUR ANIS SYAKILLA BINTI WAN ARIFIN", group: "Kumpulan 4" },
+      { name: "NURUL FADZIHA BT AHMAD", group: "Kumpulan 4" },
+      { name: "NUR AINA FARZIANA BINTI ABDUL HADI", group: "Kumpulan 4" },
+      { name: "NUR SYAFIQA RUDIANIE BINTI MOHAMAD FAISAL", group: "Kumpulan 4" },
+      { name: "NURSYAFIQAH BINTI RUSLI", group: "Kumpulan 4" },
+      { name: "NORAZLINA BT ARIFFIN", group: "Kumpulan 4" },
+      { name: "DANIA QISTINA BINTI HAFIZI", group: "Kumpulan 4" }
+    ].filter((item) => {
+      const key = normalized(item.name);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    const groups = ["Kumpulan 1", "Kumpulan 2", "Kumpulan 3", "Kumpulan 4"];
+
+    const counts = new Map();
+    data.forEach((item) => {
+      const key = normalized(item.name);
+      counts.set(key, (counts.get(key) || 0) + 1);
+    });
+
+    const totalCountEl = document.getElementById("totalCount");
+    const uniqueCountEl = document.getElementById("uniqueCount");
+    const duplicateCountEl = document.getElementById("duplicateCount");
+    const shownCountEl = document.getElementById("shownCount");
+    const groupChipsEl = document.getElementById("groupChips");
+    const tableBodyEl = document.getElementById("tableBody");
+    const searchEl = document.getElementById("search");
+    const resetBtn = document.getElementById("reset");
+    const exportBtn = document.getElementById("export");
+    const filterButtons = Array.from(document.querySelectorAll(".filter"));
+
+    let currentGroup = "All";
+    let lastFiltered = data;
+
+    function setStats() {
+      totalCountEl.textContent = data.length;
+      uniqueCountEl.textContent = counts.size;
+      const duplicateEntries = data.filter((item) => counts.get(normalized(item.name)) > 1).length;
+      duplicateCountEl.textContent = duplicateEntries;
+
+      groupChipsEl.innerHTML = "";
+      groups.forEach((group) => {
+        const count = data.filter((item) => item.group === group).length;
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = `${group}: ${count}`;
+        groupChipsEl.appendChild(chip);
+      });
+    }
+
+    function renderTable(rows) {
+      tableBodyEl.innerHTML = "";
+
+      if (rows.length === 0) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 3;
+        td.className = "empty";
+        td.textContent = "Tiada nama ditemui.";
+        tr.appendChild(td);
+        tableBodyEl.appendChild(tr);
+        return;
+      }
+
+      rows.forEach((item, index) => {
+        const tr = document.createElement("tr");
+        const key = normalized(item.name);
+        const isDup = counts.get(key) > 1;
+        if (isDup) tr.classList.add("dup");
+
+        const tdIndex = document.createElement("td");
+        tdIndex.textContent = index + 1;
+
+        const tdName = document.createElement("td");
+        tdName.textContent = item.name;
+        if (isDup) {
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = "Duplikasi";
+          tdName.appendChild(badge);
+        }
+
+        const tdGroup = document.createElement("td");
+        tdGroup.textContent = item.group;
+
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdName);
+        tr.appendChild(tdGroup);
+        tableBodyEl.appendChild(tr);
+      });
+    }
+
+    function render() {
+      const query = normalized(searchEl.value || "");
+
+      const filtered = data.filter((item) => {
+        const inGroup = currentGroup === "All" || item.group === currentGroup;
+        const match = !query || normalized(item.name).includes(query);
+        return inGroup && match;
+      });
+
+      lastFiltered = filtered;
+      shownCountEl.textContent = filtered.length;
+      exportBtn.disabled = filtered.length === 0;
+      renderTable(filtered);
+    }
+
+    function setGroup(group) {
+      currentGroup = group;
+      filterButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.group === group);
+      });
+      render();
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => setGroup(btn.dataset.group));
+    });
+
+    searchEl.addEventListener("input", render);
+    resetBtn.addEventListener("click", () => {
+      searchEl.value = "";
+      setGroup("All");
+    });
+
+    exportBtn.addEventListener("click", () => {
+      if (lastFiltered.length === 0) return;
+      const header = "Kumpulan,Nama\n";
+      const rows = lastFiltered
+        .map((item) => `"${item.group}","${item.name.replace(/"/g, '""')}"`)
+        .join("\n");
+      const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "ajk-kem-ojt-2026.csv";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    setStats();
+    setGroup("All");
+  </script>
+</body>
+</html>
